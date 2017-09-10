@@ -3,9 +3,15 @@ require('less/note.less');
 var Toast = require('./toast.js').Toast;
 var Event = require('mod/event.js');
 
+
+/**
+ * 一个node需要：id，text
+ * {id:1,text:'hello'}
+ * 
+ */
 function Note(opts){
   this.initOpts(opts);
-  this.createNote();
+  this.createNote(); 
   this.setStyle();
   this.bindEvent();
 }
@@ -76,6 +82,18 @@ Note.prototype = {
       if($noteCt.html()=='input here') $noteCt.html('');
       $noteCt.data('before', $noteCt.html());
     }).on('blur paste', function() {
+      /**
+       * 向元素附加数据，然后取回该数据：
+       * 
+       * $("#btn1").click(function(){
+            $("div").data("greeting", "Hello World");
+          });
+          $("#btn2").click(function(){
+            alert($("div").data("greeting"));
+          });
+       * 
+       * 
+       */
       if( $noteCt.data('before') != $noteCt.html() ) {
         $noteCt.data('before',$noteCt.html());
         self.setLayout();
@@ -91,6 +109,7 @@ Note.prototype = {
     $noteHead.on('mousedown', function(e){
       var evtX = e.pageX - $note.offset().left,   //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
           evtY = e.pageY - $note.offset().top;
+      
       $note.addClass('draggable').data('evtPos', {x:evtX, y:evtY}); //把事件到 dialog 边缘的距离保存下来
     }).on('mouseup', function(){
        $note.removeClass('draggable').removeData('pos');
