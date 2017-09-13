@@ -14,6 +14,8 @@ function Note(opts){
   this.createNote(); 
   this.setStyle();
   this.bindEvent();
+  //test
+  // this.id = 88;
 }
 Note.prototype = {
   colors: [
@@ -37,6 +39,10 @@ Note.prototype = {
     if(this.opts.id){
        this.id = this.opts.id;
     }
+    //test
+    // else{
+    //   this.opts.id = this.id++;
+    // }
   },
 
   createNote: function () {
@@ -138,8 +144,6 @@ Note.prototype = {
   },
 
   add: function (msg){
-    console.log('addd...');
-    console.log(this.id)
     var self = this;
     $.post('/api/notes/add', {note: msg})
       .done(function(ret){

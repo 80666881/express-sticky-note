@@ -118,7 +118,6 @@ a {
   color: #333;
   width: 160px;
   margin: 20px 10px;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 .note .note-head {
@@ -166,12 +165,10 @@ a {
   color: #fff;
   cursor: pointer;
   opacity: 0;
-  -webkit-transition: opacity .3s;
   transition: opacity .3s;
 }
 .draggable {
   opacity: 0.8;
   cursor: move;
-  -webkit-transition: none;
   transition: none;
 }

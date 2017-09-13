@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -180,7 +180,7 @@ module.exports.Toast = Toast;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var Toast = __webpack_require__(2).Toast;
-var Note = __webpack_require__(10).Note;
+var Note = __webpack_require__(11).Note;
 var Toast = __webpack_require__(2).Toast;
 var Event = __webpack_require__(1);
 
@@ -337,16 +337,45 @@ module.exports = function(module) {
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(3);
+
+var NoteManager = __webpack_require__(4).NoteManager;
+var Event = __webpack_require__(1);
+var WaterFall = __webpack_require__(5);
+
+NoteManager.load();
+
+$('.add-note').on('click', function() {
+  NoteManager.add();
+})
+
+Event.on('waterfall', function(){
+  WaterFall.init($('#content'));
+})
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function($) {__webpack_require__(6);
 
 var Toast = __webpack_require__(2).Toast;
 var Event = __webpack_require__(1);
 
+
+/**
+ * 一个node需要：id，text
+ * {id:1,text:'hello'}
+ * 
+ */
 function Note(opts){
   this.initOpts(opts);
-  this.createNote();
+  this.createNote(); 
   this.setStyle();
   this.bindEvent();
+  //test
+  // this.id = 88;
 }
 Note.prototype = {
   colors: [
@@ -366,9 +395,14 @@ Note.prototype = {
 
   initOpts: function (opts) {
     this.opts = $.extend({}, this.defaultOpts, opts||{});
+
     if(this.opts.id){
        this.id = this.opts.id;
     }
+    //test
+    // else{
+    //   this.opts.id = this.id++;
+    // }
   },
 
   createNote: function () {
@@ -414,6 +448,18 @@ Note.prototype = {
       if($noteCt.html()=='input here') $noteCt.html('');
       $noteCt.data('before', $noteCt.html());
     }).on('blur paste', function() {
+      /**
+       * 向元素附加数据，然后取回该数据：
+       * 
+       * $("#btn1").click(function(){
+            $("div").data("greeting", "Hello World");
+          });
+          $("#btn2").click(function(){
+            alert($("div").data("greeting"));
+          });
+       * 
+       * 
+       */
       if( $noteCt.data('before') != $noteCt.html() ) {
         $noteCt.data('before',$noteCt.html());
         self.setLayout();
@@ -429,6 +475,7 @@ Note.prototype = {
     $noteHead.on('mousedown', function(e){
       var evtX = e.pageX - $note.offset().left,   //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
           evtY = e.pageY - $note.offset().top;
+      
       $note.addClass('draggable').data('evtPos', {x:evtX, y:evtY}); //把事件到 dialog 边缘的距离保存下来
     }).on('mouseup', function(){
        $note.removeClass('draggable').removeData('pos');
@@ -457,7 +504,6 @@ Note.prototype = {
   },
 
   add: function (msg){
-    console.log('addd...');
     var self = this;
     $.post('/api/notes/add', {note: msg})
       .done(function(ret){
@@ -492,27 +538,6 @@ Note.prototype = {
 module.exports.Note = Note;
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(3);
-
-var NoteManager = __webpack_require__(4).NoteManager;
-var Event = __webpack_require__(1);
-var WaterFall = __webpack_require__(5);
-
-NoteManager.load();
-
-$('.add-note').on('click', function() {
-  NoteManager.add();
-})
-
-Event.on('waterfall', function(){
-  WaterFall.init($('#content'));
-})
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
