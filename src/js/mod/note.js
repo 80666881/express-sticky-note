@@ -14,7 +14,6 @@ function Note(opts){
   this.createNote(); 
   this.setStyle();
   this.bindEvent();
-  //test
   // this.id = 88;
 }
 Note.prototype = {
