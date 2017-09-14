@@ -21,7 +21,7 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new GitHubStrategy({
     //阿里服务器设置
     clientID: "f73b4d8e041c12f52afd",
-    clientSecret: "1e67ed8848c988512fa42103142ab43c734ebc58",
+    clientSecret: "974f42d6407a1db1dffc99ec22da5b39a3d2a96a",
     callbackURL: "http://www.zhengzehao.top/auth/github/callback"
 
     //本地localhost设置
