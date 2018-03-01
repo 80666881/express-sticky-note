@@ -20,14 +20,14 @@ passport.deserializeUser(function (obj, done) {
 
 passport.use(new GitHubStrategy({
     //阿里服务器设置
-    clientID: "f73b4d8e041c12f52afd",
-    clientSecret: "974f42d6407a1db1dffc99ec22da5b39a3d2a96a",
-    callbackURL: "http://www.zhengzehao.top/auth/github/callback"
+    // clientID: "f73b4d8e041c12f52afd",
+    // clientSecret: "974f42d6407a1db1dffc99ec22da5b39a3d2a96a",
+    // callbackURL: "http://www.zhengzehao.top/auth/github/callback"
 
     //本地localhost设置
-    // clientID:"1371ae3a7ea81a9b2b7e",
-    // clientSecret:"18ca5fdf164d0c76e3313e1e7ffe3f38bcefef45",
-    // callbackURL:"http://localhost:8484/auth/github/callback"
+    clientID:"1371ae3a7ea81a9b2b7e",
+    clientSecret:"18ca5fdf164d0c76e3313e1e7ffe3f38bcefef45",
+    callbackURL:"http://localhost:8484/auth/github/callback"
 },
     function (accessToken, refreshToken, profile, done) {
         // User.findOrCreate({ githubId: profile.id }, function (err, user) {
